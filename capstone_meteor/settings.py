@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-_z1p*07&lod*kpk@b!2(4&n29xrqyk*)cb=dmav45d@^m=xkwe
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '3.85.116.116'
+    '3.85.116.116',
+    'pydashboard.pushprojects.live'
 ]
 
 
