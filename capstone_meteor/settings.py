@@ -28,7 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '3.85.116.116',
     'pydashboard.pushprojects.live',
-    '127.0.0.1'
+    'www.pydashboard.pushprojects.live',
+    '127.0.0.1',
+    'localhost',
 ]
 
 
