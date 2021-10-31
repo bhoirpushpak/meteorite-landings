@@ -1,7 +1,66 @@
 {% extends 'layouts/app.html' %}
 
 {% block section %}
-    <div class="main-panel">
+     <div class="main-panel">
             <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <p class="card-title">Data Visualization</p>
+                            <h3>Crime Incidents in Boston By Year</h3>
+                                <img src="static/images/plots/crime_bar.png" width="50%">
+                                <p>
+                                    <ul>
+                                        <li> In this visualization we can see that the crime incidents were high in the year of 2017</li>
+                                        <li>There is a large dip in crime incidents occurred in the year 2019 however the incidents rise again in 2020</li>
+                                        <li>The incidents occurred in 2021 is much lower than in 2020 so we can say that there were some improvements done in the year of 2020</li>
+                                    </ul>
+
+                                </p>
+                            <h3>At what time did most of the shootings Occurred in Boston</h3>
+                                <img src="static/images/plots/line.png" width="50%">
+                                 <p>
+                                        <ul>
+                                            <li>The shooting incidents have a spike on Wednesday during night times between 12 am to 3am</li>
+                                            <li>We can also see that there are less number of shooting incidents on Thursday </li>
+                                            <li>The shooting incidents are less in the morning and high during night times so we need to increase patrolling during those times.</li>
+                                        </ul>
+
+                                    </p>
+                            <h3>Top 10 Offences</h3>
+                                <img src="static/images/plots/pie.png" width="50%">
+                            <p>
+                                        <ul>
+                                            <li>The most number of offences we recorded while investigating a person</li>
+                                            <li>Incidents such as sick assistance also had offences recorded</li>
+
+                                        </ul>
+
+                                    </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                      <h3>Days when shootings occurred</h3>
+                                <img src="static/images/plots/bar.png" width="100%">
+                                </div>
+                                <div class="col-md-6">
+                                      <h3>Days when shootings did not occur</h3>
+                                <img src="static/images/plots/not_bar.png" width="100%">
+                                </div>
+                            </div>
+
+
+                            <p>
+                                        <ul>
+                                            <li>In this two visualizations we can see on what days did the shootings occurred and on what days we least amounts of incidents occurred</li>
+                                            <li>Sunday had the lowest rate of shootings recorded while saturdays had highest number of shootings occurred</li>
+
+                                        </ul>
+
+                                    </p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
             </div>
 {% endblock %}

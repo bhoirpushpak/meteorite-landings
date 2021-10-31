@@ -1,7 +1,82 @@
 {% extends 'layouts/app.html' %}
 
 {% block section %}
-    <div class="main-panel">
+   <div class="main-panel">
             <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <p class="card-title">Finding if shootings will occur in boston to increase police using Logistic Regression </p>
+
+                            <p>Generating Dummies for our variables</p>
+                            <h5>
+                                shootings = pd.get_dummies(Bos_Crime_Data['SHOOTING'], drop_first= True)
+                                <br>
+                                <br>
+                                day_week = pd.get_dummies(Bos_Crime_Data['DAY_OF_WEEK'])
+                                <br>
+                                <br>
+                                year = pd.get_dummies(Bos_Crime_Data['YEAR'])
+                            </h5>
+                            <br>
+                                <br>
+                            <p>Data Wrangling</p>
+                            <h5>
+                                Boston_Dummy_Data = pd.concat([shootings,day_week,year,Bos_Crime_Data['MONTH'],Bos_Crime_Data['HOUR']], axis=1)
+                            </h5>
+                              <br>
+                                <br>
+                            <h5>
+                                X_data = Boston_Dummy_Data.drop('SHOOTING',axis=1)<br><br>
+                                y_data = Boston_Dummy_Data['SHOOTING']
+                            </h5>
+                            <br>
+                                <br>
+                            <p>Splitting the Data into Test and Train Sets</p>
+                            <h5>
+                                X_train, X_test, y_train, y_test = train_test_split(X_data,y_data, test_size=0.3, random_state=32)
+                            </h5>
+                            <br>
+                                <br>
+                            <p>Building the Model</p>
+                            <h5>
+                                Boston_Logistic_Model = LogisticRegression(max_iter=150000)<br>
+                                Boston_Logistic_Model.fit(X_train,y_train)
+                            </h5>
+                            <br><br>
+                            <p>Making Predictions</p>
+                            <h5>
+                                Shooting_predictions = Boston_Logistic_Model.predict(X_test)
+                            </h5>
+                            <br><br>
+                            <p>Building Confusion Matrix</p>
+                            <h5>
+                                  confusion = confusion_matrix(y_test,Shooting_predictions)<br><br>
+                                [[99290     0]<br>
+                                [  871     0]]
+                            </h5>
+                            <br><br>
+                            <p>Getting Accuracy of The Model</p>
+                            <h5>
+                                accuracy_score(y_test,Shooting_predictions)<br><br>
+                                Accuracy Score: 0.9913040005590998
+                            </h5>
+                            <br><br>
+                            <h3>Conclusions</h3>
+                            <p>
+                                        <ul>
+                                            <li>Our Prediction Model has accuracy score of 99% which is pretty good for predicting the results</li>
+                                            <li>The True positives is 99290 and false positives is 871. We cab say that if the police patrolling is increased in boston there will be less incidents of shooting.</li>
+                                            <li>The shootings will occur in boston area during night times and there are more chances of shootings occurring on Wednesday</li>
+                                            <li>Looking at the past data we can tell that if the officers are investigating a person they should be careful as there are more likely the chases that shootings will occur.</li>
+                                        </ul>
+
+                                    </p>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
             </div>
 {% endblock %}

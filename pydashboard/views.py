@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render
 from django.http import HttpResponse
 import pandas as pd
@@ -17,11 +19,22 @@ def dashboard(request):
     try:
         Crime_Df = FetchData()
 
+        shooting_days = Crime_Df[Crime_Df.SHOOTING == 1]
+        Offences = Crime_Df.groupby(['OFFENSE_DESCRIPTION'])['SHOOTING'].count().reset_index(
+            name='Count').sort_values(['Count'], ascending=False)
+        Lat_Long = Crime_Df[['Lat', 'Long']]
+        Lat_Long = Lat_Long.head(2000)
+        latlong_list = Lat_Long.to_json(orient="records")
 
         context = {
+            'offence': Offences['Count'][0],
+            'lat_long': latlong_list,
+            'shootings': len(shooting_days),
             'number_rows': len(Crime_Df.axes[0]),
             'number_cols': len(Crime_Df.axes[0]),
         }
+
+
 
         return render(request, 'index.html', context)
     except Exception as ex:
@@ -31,17 +44,16 @@ def dashboard(request):
 
 def data_description(request):
 
-    Crime_Df = FetchData()
-    Data_head =  Crime_Df.head()
-    Data_tail = Crime_Df.tail()
-    Data_describe =  Crime_Df.describe()
-    context = {
-        'data_head' : Data_head,
-        'data_tail' : Data_tail,
-        'data_describe' : Data_describe,
-    }
-
-    return render(request,'data-description.html',context)
+    return render(request,'data-description.html')
 
 def descriptive_analytics(request):
-    return render(request,'index.html')
+    return render(request,'descriptive.html')
+
+def data_visualzation(request):
+    return render(request, 'data-visual.html')
+
+def prediction_model(request):
+    return render(request, 'predictive.html')
+
+def downloader(request):
+    return render(request, 'download.html')

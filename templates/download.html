@@ -1,7 +1,26 @@
 {% extends 'layouts/app.html' %}
 
 {% block section %}
-    <div class="main-panel">
+       <div class="main-panel">
             <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <p class="card-title">Download Dataset</p>
+                            <h4>Download Data From Analyze Boston Website </h4>
+                            <a href="https://data.boston.gov/dataset/crime-incident-reports-august-2015-to-date-source-new-system" target="_blank" class="btn btn-success">Go To Wesbite</a>
+                            <br>
+                            <br>
+                            <h4>Download Cleaned Data used for Analysis</h4>
+                            <a href="http://pydashboard.pushprojects.live/static/csv/Bos_Crime_Data.csv" target="_blank" class="btn btn-success">Download</a>
+                            <br>
+                            <br>
+                            <h4>Download Raw Data</h4>
+                            <a href="http://pydashboard.pushprojects.live/static/csv/Crime_data_2017_2021.csv" target="_blank" class="btn btn-success">Download</a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
             </div>
 {% endblock %}

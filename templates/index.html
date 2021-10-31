@@ -1,6 +1,7 @@
 {% extends 'layouts/app.html' %}
 
 {% block section %}
+
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
@@ -14,50 +15,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-6 grid-margin transparent">
+            <div class="col-md-12 grid-margin transparent">
               <div class="row">
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-tale">
                     <div class="card-body">
                       <p class="mb-4">Total Incidents</p>
-                      <p class="fs-30 mb-2">4006</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Total Shootings</p>
-                      <p class="fs-30 mb-2">61344</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Number of Meetings</p>
-                      <p class="fs-30 mb-2">34040</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 stretch-card transparent">
-                  <div class="card card-light-danger">
-                    <div class="card-body">
-                      <p class="mb-4">Number of Clients</p>
-                      <p class="fs-30 mb-2">47033</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6 grid-margin transparent">
-              <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <p class="mb-4">Total Records</p>
                       <p class="fs-30 mb-2">{{ number_rows }}</p>
                     </div>
                   </div>
@@ -65,8 +28,8 @@
                 <div class="col-md-6 mb-4 stretch-card transparent">
                   <div class="card card-dark-blue">
                     <div class="card-body">
-                      <p class="mb-4">Total Bookings</p>
-                      <p class="fs-30 mb-2">61344</p>
+                      <p class="mb-4">Total Shootings</p>
+                      <p class="fs-30 mb-2">{{ shootings }}</p>
                     </div>
                   </div>
                 </div>
@@ -75,23 +38,70 @@
                 <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
                   <div class="card card-light-blue">
                     <div class="card-body">
-                      <p class="mb-4">Number of Meetings</p>
-                      <p class="fs-30 mb-2">34040</p>
+                      <p class="mb-4">Years</p>
+                      <p class="fs-30 mb-2">2017 -2021</p>
                     </div>
                   </div>
                 </div>
                 <div class="col-md-6 stretch-card transparent">
                   <div class="card card-light-danger">
                     <div class="card-body">
-                      <p class="mb-4">Number of Clients</p>
-                      <p class="fs-30 mb-2">47033</p>
+                      <p class="mb-4">Number of Major Offenses</p>
+                      <p class="fs-30 mb-2">23391</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- content-wrapper ends -->
+            <div class="row">
+                <h3>Top 2000 Incidents in Boston City</h3>
+                <div class="col-md-12"><div id="crime_map" style="height: 500px"></div></div>
 
+            </div>
+        </div>
+
+        <!-- content-wrapper ends -->
+    {% block js %}
+           <script src="static/js/leaflet.js"></script>
+        <script type="application/javascript">
+               var leaflet = new L.Map('crime_map', {zoom: 13, center: new L.latLng(42.3358547,-71.08687) });
+
+                                leaflet.addLayer(new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));
+
+                                // add scale layer
+                                L.control.scale().addTo(leaflet);
+
+                                var LatLong = '{{ lat_long }}'
+                                var purified =  LatLong.replaceAll('&quot;','"');
+                                var json_lat_long = JSON.parse(purified)
+                                locations =[]
+                                 for(var i=0;i<json_lat_long.length;i++){
+                                    locations[i] = {
+                                            'loc' : [json_lat_long[i].Lat,json_lat_long[i].Long]
+                                        }
+
+                                 }
+
+                                 // add scale layer
+                                L.control.scale().addTo(leaflet);
+
+                                // set custom SVG icon marker
+                                var leafletIcon = L.divIcon({
+                                    html: `<span class="svg-icon svg-icon-danger svg-icon-3x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="24" width="24" height="0"/><path d="M5,10.5 C5,6 8,3 12.5,3 C17,3 20,6.75 20,10.5 C20,12.8325623 17.8236613,16.03566 13.470984,20.1092932 C12.9154018,20.6292577 12.0585054,20.6508331 11.4774555,20.1594925 C7.15915182,16.5078313 5,13.2880005 5,10.5 Z M12.5,12 C13.8807119,12 15,10.8807119 15,9.5 C15,8.11928813 13.8807119,7 12.5,7 C11.1192881,7 10,8.11928813 10,9.5 C10,10.8807119 11.1192881,12 12.5,12 Z" fill="#1275a2" fill-rule="nonzero"/></g></svg></span>`,
+                                    bgPos: [10, 10],
+                                    iconAnchor: [20, 37],
+                                    popupAnchor: [0, -37],
+                                    className: 'leaflet-marker'
+                                });
+
+
+
+                                 // set markers
+                                locations.forEach(function(item){
+                                    var marker = L.marker(item.loc, { icon: leafletIcon }).addTo(leaflet);
+                                })
+
+        </script>
+    {% endblock %}
 {% endblock %}
