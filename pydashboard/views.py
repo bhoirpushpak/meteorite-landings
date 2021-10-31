@@ -28,12 +28,8 @@ def dashboard(request):
             'offence': Offences['Count'][0],
             'lat_long': latlong_list,
             'shootings': len(shooting_days),
-            'number_rows': len(Crime_Df.axes[0]),
-            'number_cols': len(Crime_Df.axes[0]),
+            'number_rows': len(Crime_Df.axes[0])
         }
-
-
-
         return render(request, 'index.html', context)
     except Exception as ex:
         print(repr(ex))
