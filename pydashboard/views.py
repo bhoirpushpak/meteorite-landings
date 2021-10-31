@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-#import pandas as pd
+import pandas as pd
 from pprint import pprint
 
 def FetchData():
