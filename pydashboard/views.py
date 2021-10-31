@@ -5,12 +5,12 @@ from pprint import pprint
 
 def FetchData():
     # Create your models here.
-    try:
-        CrimeData = pd.read_csv('http://pydashboard.pushprojects.live/static/csv/Bos_Crime_Data.csv', header=0, low_memory = False)
-        Crime_Df = pd.DataFrame(CrimeData)
-        return Crime_Df
-    except Exception as ex:
-        print(repr(ex))
+        try:
+            CrimeData = pd.read_csv('http://pydashboard.pushprojects.live/static/csv/Bos_Crime_Data.csv', header=0, low_memory = False)
+            Crime_Df = pd.DataFrame(CrimeData)
+            return Crime_Df
+        except Exception as ex:
+            print(repr(ex))
 
 # Create your views here.
 def dashboard(request):
